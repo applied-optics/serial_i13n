@@ -18,7 +18,7 @@
 #define	SERIAL_MAX_DEV_LEN				128
 
 // the following #defines are also in serial_main, and it's possible both will
-// be used by c_scan (hopefully not) but in any case we'll use the same numbers
+// be used by c_scan (hopefully not).
 #ifndef SERIAL_NOOPEN
 #define SERIAL_NOOPEN					-1
 #endif
@@ -28,7 +28,7 @@
 #endif
 
 #ifndef	SERIAL_OK
-#define SERIAL_OK					1
+#define SERIAL_OK					0 // this is 1 in Matt's library
 #endif
 
 #define	SERIAL_ALREADY_OPEN				-3
@@ -38,12 +38,12 @@
 #define	SERIAL_CANNOT_WRITE_ERRORLOG_FILE		-10
 #define SERIAL_LOCKFILE_CREATED_OK			0
 
-#define	SERIAL_WRITE_ERROR				5
+#define	SERIAL_WRITE_ERROR				-4
 
-#define	SERIAL_READ_SELECT_ERROR			4
-#define	SERIAL_REPEATED_TIMEOUTS			3
-#define	SERIAL_REPEATED_EMPTY_DATA			2
-#define	SERIAL_EMPTY_DATA				1
+#define	SERIAL_READ_SELECT_ERROR			-5
+#define	SERIAL_REPEATED_TIMEOUTS			-6
+#define	SERIAL_REPEATED_EMPTY_DATA			-7
+#define	SERIAL_EMPTY_DATA				-8
 #define SERIAL_BUF					128
 
 int	serial_open(const char *tty, int baud_rate);
