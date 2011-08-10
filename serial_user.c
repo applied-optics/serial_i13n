@@ -107,7 +107,7 @@ int	serial_send_str(int fd, const char *cmd) {
 int	serial_send_raw(int fd, const char *cmd, int len) {
 struct	timeval Timeout;
 fd_set	writefs;
-int	ret;
+int	ret,i;
 
 	Timeout.tv_usec = 0;  /* microseconds */
 	Timeout.tv_sec  = 1;  //zero just hangs
@@ -120,14 +120,23 @@ int	ret;
 		return SERIAL_WRITE_ERROR;
 		}
 	write(fd, (void *)cmd, len);
-	FD_ZERO(&writefs);
-	FD_SET(fd, &writefs);
-	ret = select(fd+1, (fd_set *)0, &writefs,(fd_set *)0, &Timeout);
-	if(ret <= 0) {
-		fprintf(stderr, "SERIAL_set: select on WRITE return value = %d (should be >0).\n", ret);
-		return SERIAL_WRITE_ERROR;
-		}
-	write(fd, (void *)"\r", 2);
+
+//	printf("Sent:\n");
+//	for(i=0;i<len;i++){
+//		if(cmd[i]>31)fprintf(stderr, "%c:",cmd[i]);
+//		else fprintf(stderr, "[%d]:",(int)cmd[i]);
+//		fflush(stdout);
+//		}
+//	fprintf(stderr, "\n");
+
+//	FD_ZERO(&writefs);
+//	FD_SET(fd, &writefs);
+//	ret = select(fd+1, (fd_set *)0, &writefs,(fd_set *)0, &Timeout);
+//	if(ret <= 0) {
+//		fprintf(stderr, "SERIAL_set: select on WRITE return value = %d (should be >0).\n", ret);
+//		return SERIAL_WRITE_ERROR;
+//		}
+//	write(fd, (void *)"\r", 2);
 	return SERIAL_OK;
 	}
 
@@ -166,13 +175,13 @@ fd_set	readfs;
 			}
 
 		if (res==0) {
-			//fprintf(stderr, "Timed out\n");
+//			fprintf(stderr, "Timed out\n");
 			hold_up++;
 			}
 		else{
 			bytes_read = read(fd,(void *)(buf + i), buf_len - i);
 			total_bytes_read += bytes_read;
-			//fprintf(stderr, "%d bytes read this time, %d bytes read so far\n", bytes_read, total_bytes_read);
+//			fprintf(stderr, "%d bytes read this time, %d bytes read so far\n", bytes_read, total_bytes_read);
 			i = i + bytes_read;
 			}
 		} while (buf[i-1] != terminate_read_char && i < buf_len && hold_up<10 && bytes_read != 0);
@@ -182,8 +191,8 @@ fd_set	readfs;
 //	printf("\ni = %d\n",i);
 //	fprintf(stderr, "%d bytes read in total, which were: \n",(int)total_bytes_read);
 //	for(i=0;i<(int)total_bytes_read;i++){
-//		if(tmp_buff[i]>31)fprintf(stderr, "%c:",tmp_buff[i]);
-//		else fprintf(stderr, "[%d]:",(int)tmp_buff[i]);
+//		if(buf[i]>31)fprintf(stderr, "%c:",buf[i]);
+//		else fprintf(stderr, "[%d]:",(int)buf[i]);
 //		fflush(stdout);
 //		}
 //	fprintf(stderr, "\n");
@@ -191,7 +200,7 @@ fd_set	readfs;
 	// This is relatively common, and can happen for a variety of reasons. Closing the serial
 	// port and reopening it again usually fixes it.
 	if(bytes_read == 0) {
-		//fprintf(stderr, "Timed out, and have not read any data (0 bytes). Returning with -3\n");
+//		fprintf(stderr, "Timed out, and have not read any data (0 bytes). Returning with -3\n");
 		return SERIAL_EMPTY_DATA;
 		}
 	i = 0;
