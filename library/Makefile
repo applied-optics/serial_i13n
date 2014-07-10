@@ -2,10 +2,10 @@ include ../config.mk
 
 .PHONY : all install clean dist distclean
 
-all : libserial_i13n.so.0
+all : $(full_libname)
 
-libserial_i13n.so.0 : serial_i13n.o
-	$(CC) -shared -Wl,-soname,libserial_i13n.so.0 $^ -o $@
+$(full_libname) : serial_i13n.o
+	$(CC) -shared -Wl,-soname,$(full_libname) $^ -o $@
 
 serial_i13n.o: serial_i13n.c serial_i13n.h
 	$(CC) -fPIC $(CFLAGS) -c $< -o $@
@@ -14,12 +14,12 @@ TAGS: $(wildcard *.c) $(wildcard *.h) $(wildcard *.c)
 	etags $^
 
 clean:
-	rm -f *.o libserial_i13n.so.0 TAGS
+	rm -f *.o $(full_libname) TAGS
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/
-	$(INSTALL) libserial_i13n.so.0 $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/
-	ln -sf libserial_i13n.so.0 $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/libserial_i13n.so
+	$(INSTALL) $(full_libname) $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/
+	ln -sf $(full_libname) $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/$(libname)
 	$(INSTALL) -d $(DESTDIR)$(prefix)/include/
 	$(INSTALL) serial_i13n.h $(DESTDIR)$(prefix)/include/
 
