@@ -28,7 +28,7 @@
 #endif
 
 #ifndef	SERIAL_OK
-#define SERIAL_OK					0 // this is 1 in Matt's library
+#define SERIAL_OK					0	// this is 1 in Matt's library
 #endif
 
 #define	SERIAL_ALREADY_OPEN				-3
@@ -46,13 +46,16 @@
 #define	SERIAL_EMPTY_DATA				-8
 #define SERIAL_BUF					128
 
-int	serial_open(const char *tty, int baud_rate);
-int	serial_close(int fd);
-int	serial_send(int fd, const char *cmd, const char *term_chars, int term_chars_len);
-int	serial_send_str(int fd, const char *cmd);
-int	serial_send_raw(int fd, const char *cmd, int len);
-int	serial_receive(int fd, char *buf, int buf_len, const char terminate_read_char, const char end_of_message_char);
-int	serial_create_lockfile(const char *);
-void	serial_release_lockfile(const char *);
+int serial_open(const char *tty, int baud_rate);
+int serial_close(int fd);
+int serial_send(int fd, const char *cmd, const char *term_chars,
+		int term_chars_len);
+int serial_send_str(int fd, const char *cmd);
+int serial_send_raw(int fd, const char *cmd, int len);
+int serial_receive(int fd, char *buf, int buf_len,
+		   const char terminate_read_char,
+		   const char end_of_message_char);
+int serial_create_lockfile(const char *);
+void serial_release_lockfile(const char *);
 
 #endif

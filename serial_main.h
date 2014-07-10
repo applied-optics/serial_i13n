@@ -17,7 +17,7 @@ using namespace std;
 #define SERIAL_ASYNC	2
 #define SERIAL_OK	1
 
-int SERIAL_open(char *,int);
+int SERIAL_open(char *, int);
 int SERIAL_get(char *);
 int SERIAL_close(void);
 
