@@ -16,15 +16,17 @@ int serial_open(const char *tty, int baud_rate)
 	char baud_rate_str[100];
 	int fd;
 
-	if (tty[0] == '/')
+	if (tty[0] == '/') {
 		snprintf(device, SERIAL_MAX_DEV_LEN, "%s", tty);
-	else
+	} else {
 		snprintf(device, SERIAL_MAX_DEV_LEN, "/dev/%s", tty);
+	}
 	strncpy(short_device, device + 5, strlen(device) - 5);
 
 	fd = serial_create_lockfile(short_device);
-	if (fd != SERIAL_LOCKFILE_CREATED_OK)
+	if (fd != SERIAL_LOCKFILE_CREATED_OK) {
 		return fd;
+	}
 
 	for (l = 0; l < SERIAL_MAX_DEVICES; l++) {
 		if (strcmp(short_device, SERIAL_TTY[l]) == 0) {
@@ -123,12 +125,14 @@ int serial_send(int fd, const char *cmd, const char *term_chars,
 {
 	int cmd_len, ret;
 	char *out_cmd;
+
 	cmd_len = strlen(cmd);
-	out_cmd = new char[cmd_len + term_chars_len];
+	out_cmd = (char *)malloc(cmd_len + term_chars_len);
 	memcpy(out_cmd, cmd, cmd_len);
 	memcpy(out_cmd + cmd_len, term_chars, term_chars_len);
 	ret = serial_send_raw(fd, out_cmd, cmd_len + term_chars_len);
-	delete[]out_cmd;
+	free(out_cmd);
+
 	return ret;
 }
 
@@ -246,9 +250,9 @@ int serial_receive(int fd, char *buf, int buf_len,
 		return SERIAL_EMPTY_DATA;
 	}
 	i = 0;
-	do
+	do {
 		(1);
-	while (buf[i++] != end_of_message_char && i < buf_len);
+	} while (buf[i++] != end_of_message_char && i < buf_len);
 	if (i >= buf_len) {
 		fprintf(stderr,
 			"Error: couldn't find end_of_message char in buf\n");

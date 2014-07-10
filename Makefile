@@ -17,8 +17,8 @@ install : all
 
 dist : distclean
 	mkdir serial-$(VERSION)
-	cp -pr library utils serial-$(VERSION)/
-	cp -p Makefile CMakeLists.txt CHANGELOG.txt README.txt GNU_General_Public_License.txt serial-$(VERSION)/
+	cp -pr library serial-$(VERSION)/
+	cp -p Makefile CHANGELOG.txt README.txt GNU_General_Public_License.txt serial-$(VERSION)/
 	tar -zcf serial-$(VERSION).tar.gz serial-$(VERSION)
 
 distclean : 
