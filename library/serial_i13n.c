@@ -8,7 +8,7 @@
 #include <string.h>
 #include <time.h>
 
-#include "serial_user.h"
+#include "serial_i13n.h"
 
 char SERIAL_TTY[SERIAL_MAX_DEVICES][SERIAL_MAX_DEV_LEN];	/* short form of the serial device name (eg "ttyUSB0" or "ttyS0") */
 int SERIAL_FD[SERIAL_MAX_DEVICES];	/* file descriptor of each serial port */
