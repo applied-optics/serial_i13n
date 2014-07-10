@@ -1,6 +1,10 @@
 #ifndef _SERIAL_USER_H_
 #define _SERIAL_USER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define SERIAL_LOCKFILE "/etc/serial/"
 #define SERIAL_LOCKFILEDIR "/etc/serial/"
 
@@ -34,5 +38,9 @@ int serial_receive(int fd, char *buf, int buf_len,
 		   const char end_of_message_char);
 int serial_create_lockfile(const char *device_name);
 void serial_release_lockfile(const char *device_name);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
