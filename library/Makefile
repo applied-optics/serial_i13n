@@ -20,6 +20,6 @@ install: all
 	$(INSTALL) -d $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/
 	$(INSTALL) libserial_i13n.so.0 $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/
 	ln -sf libserial_i13n.so.0 $(DESTDIR)$(prefix)/lib${LIB_SUFFIX}/libserial_i13n.so
-	$(INSTALL) -d $(DESTDIR)$(prefix)/include/i13n/
+	$(INSTALL) -d $(DESTDIR)$(prefix)/include/
 	$(INSTALL) serial_i13n.h $(DESTDIR)$(prefix)/include/
 
