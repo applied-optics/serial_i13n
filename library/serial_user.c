@@ -1,3 +1,13 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <termios.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <string.h>
+#include <time.h>
+
 #include "serial_user.h"
 
 char SERIAL_TTY[SERIAL_MAX_DEVICES][SERIAL_MAX_DEV_LEN];	/* short form of the serial device name (eg "ttyUSB0" or "ttyS0") */
